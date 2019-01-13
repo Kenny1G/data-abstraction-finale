@@ -1,35 +1,19 @@
 package model;
 
-
 import sound.MidiSynth;
 
 import java.awt.*;
 
-
-public class Shape {
-    private static Color PLAYING_COLOR;
-
-    private int x;
-    private int y;
-    private int width;
-    private int height;
-
-    private boolean selected;
-
-    private MidiSynth midiSynth;
-    private int instrument;
-    private int playLineCoord;
-
-
-    public Shape(Point topLeft, MidiSynth midiSynth) {
-        this((int) topLeft.getX(), (int) topLeft.getY(), 0, 0); //note to students: calls the other constructor!
-        selected = false;
-        this.midiSynth = midiSynth;
-        instrument = 0;
-        playLineCoord = 0;
-        PLAYING_COLOR = new Color(230, 158, 60);
-    }
-
+public abstract class Shape {
+    public Color PLAYING_COLOR;
+    public int x;
+    public int y;
+    public int width;
+    public int height;
+    public boolean selected;
+    public MidiSynth midiSynth;
+    public int instrument;
+    public int playLineCoord;
 
     public Shape(int x, int y, int w, int h) {
         this.x = x;
@@ -74,7 +58,7 @@ public class Shape {
 
     // EFFECTS: draws this Shape on the SimpleDrawingPlayer, if the shape is selected, Shape is filled in
     //          else, Shape is unfilled (white)
-    public void draw(Graphics g) {
+    void draw(Graphics g) {
         Color save = g.getColor();
         if (selected) {
             g.setColor(PLAYING_COLOR);
@@ -91,8 +75,6 @@ public class Shape {
             g.setColor(save);
         }
     }
-
-
 
     // MODIFIES: this
     // EFFECTS:  adds dx to the shapes x coordinate, and dy to the shapes y coordinate.
@@ -129,15 +111,10 @@ public class Shape {
     }
 
     //EFFECTS: draws the shape
-    private void drawGraphics(Graphics g) {
-        g.drawRect(x, y, width, height);
-    }
+    abstract void drawGraphics(Graphics g);
 
     //EFFECTS: fills the shape
-    private void fillGraphics(Graphics g) {
-        g.fillRect(x, y, width, height);
-    }
-
+    abstract void fillGraphics(Graphics g);
 
     // EFFECTS: starts playing this Shape, where sound is dependent on the area/coordinates of the Shape
     private void play(){
