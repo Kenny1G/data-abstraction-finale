@@ -1,6 +1,8 @@
 package ui.tools;
 
 
+import model.Oval;
+import model.Rect;
 import model.Shape;
 import ui.DrawingEditor;
 
@@ -9,10 +11,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
-public class RectTool extends Tool {
+public class ShapeTool extends Tool {
 	private Shape shape;
 
-    public RectTool(DrawingEditor editor, JComponent parent) {
+    public ShapeTool(DrawingEditor editor, JComponent parent) {
 		super(editor, parent);
 		shape = null;
 	}
@@ -60,13 +62,13 @@ public class RectTool extends Tool {
 	}
 
 	//EFFECTS: Returns the string for the label.
-	protected String getLabel() {
+	private String getLabel() {
 		return "Shape";
 	}
 
 	//EFFECTS: Constructs and returns the new shape
 	private void makeShape(MouseEvent e) {
-		shape = new Shape(e.getPoint(), editor.getMidiSynth());
+		shape = new Oval(e.getPoint(), editor.getMidiSynth());
 	}
 
 	private class ShapeToolClickHandler implements ActionListener {
@@ -75,7 +77,7 @@ public class RectTool extends Tool {
 		//          called by the framework when the tool is clicked
     	@Override
 		public void actionPerformed(ActionEvent e) {
-			editor.setActiveTool(RectTool.this);
+			editor.setActiveTool(ShapeTool.this);
 		}
 	}
 }
